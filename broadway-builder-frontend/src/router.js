@@ -78,6 +78,11 @@ export default new Router({
       path: "/aboutus",
       name: 'aboutus',
       component: () => import("./views/AboutUs.vue")
+    },
+    {
+      path: "/contactus",
+      name: 'contactus',
+      component: () => import("./views/ContactUs.vue")
     }
 
   ]
