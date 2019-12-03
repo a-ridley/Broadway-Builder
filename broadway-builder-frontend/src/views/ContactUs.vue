@@ -1,60 +1,83 @@
-<template>
+<template> 
   <div id="contact-us">
     <h1 class="hidden-sm-and-up text-xs-center font-weight-bold display-1">Contact Us</h1>
     <h1 class="hidden-xs-only hidden-md-and-up text-xs-center font-weight-bold display-2">Contact Us</h1>
     <h1 class="hidden-sm-and-down hidden-lg-and-up text-xs-center font-weight-bold display-2">Contact Us</h1>
     <h1 class="hidden-md-and-down text-xs-center font-weight-bold display-3">Contact Us</h1>
     <v-container class="container">
-      <!-- <form action="submit-contact-request"> -->
-        <div style="grid-area: fname;">
-          <label for="fname"> First Name* </label>
-          <div> <input type="text" id="fname" name="firstname" required> </div>
-        </div>
-        <div style="grid-area: lname;">
-          <label for="lname"> Last Name* </label>
-          <div> <input type="text" id="lname" name="lastname" required> </div>
-        </div>
-        <div style="grid-area: email;">
-          <label for="email"> Email* </label>
-          <div> <input type="text" id="email" name="email" required> </div>
-        </div>
-        <div style="grid-area: number;">
-          <label for="phonenumber"> Phone Number* </label>
-          <div> <input type="text" id="phonenumber" name="Phone Number" required> </div>
-        </div>
-        <div style="grid-area: cname;">
-          <label for="cname"> Company Name </label>
-          <div> <input type="text" id="cname" name="Company Name"> </div>
-        </div>
-        <div style="grid-area: cemail;">
-          <label for="cemail"> Company Email </label>
-          <div> <input type="text" id="cemail" name="Company Email"> </div>
-        </div>
-        <div style="grid-area: message;">
-          <label for="message"> Message* </label>
-          <div> <textarea id="message" name="Message" rows="5" required></textarea> </div>
-        </div>
-        <div style="grid-area: submit;"> <input type="button" value="Submit" v-on:click="msg()"> </div>
-       <!-- </form> -->
+      <div style="grid-area: fname;">
+        <label for="fname"> First Name* </label>
+        <v-text-field v-model="fname" :rules="[rules.required]" solo id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: lname;">
+        <label for="lname"> Last Name* </label>
+        <v-text-field v-model="lname" :rules="[rules.required]" solo id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: email;">
+        <label for="email"> E-mail* </label>
+        <v-text-field v-model="email" :rules="[rules.required]" solo id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: number;">
+        <label for="phonenumber"> Phone Number* </label>
+        <v-text-field v-model="phonenumber" :rules="[rules.required]" solo id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: cname;">
+        <label for="cname"> Company Name </label>
+        <v-text-field v-model="cname" solo id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: cemail;">
+        <label for="cemail"> Company Email </label>
+        <v-text-field v-model="cemail" solo id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: message;">
+        <label for="message"> Message* </label>
+        <v-text-field v-model="message" :rules="[rules.required]" solo multi-line id="styled-input" class="styled-input"> </v-text-field>
+      </div>
+      <div style="grid-area: submit;"> 
+        <p class="req"> * = Required </p>
+        <v-btn text @click="submit"> Submit </v-btn>
+      </div>
       <div style="grid-area: map;">
         <a href="#"> <img src="https://i.imgur.com/tHcBSr5.png" alt="Broadway Builder Map."> </a>
         <p> <br>1234 W. Street On Map<br>Short Beach, CA 90420 </p>
         <p style="color: #0000ee;"> contact.broadwaybuilder.xyz<br><br>(555)-318-2121 </p>
       </div>
-      
     </v-container>
   </div>
 </template>
 
 <script>
 export default {
-  name: "contact us",
   created() {
     console.log("Contact us page loaded");
   },
+  data () {
+    return {
+      title: 'Form',
+      fname: '',
+      lname: '',
+      email: '',
+      phonenumber: '',
+      cname: '',
+      cemail: '',
+      message: '',
+      formHasErrors: false,
+      rules: {
+        required: value => !!value || 'Required.',
+      }
+    }
+  },
   methods: {
-    msg() {
-      alert("Message Sent!");
+    submit () {
+      this.formHasErrors = false;
+      if(this.fname=='' || this.lname=='' || this.email=='' || this.phonenumber=='' || this.message=='') {
+        this.formHasErrors = true;
+      }
+      if(!this.formHasErrors) {
+        alert("Message sent!");
+      } else {
+        alert("Please fill in all required fields.")
+      }
     }
   }
 }
@@ -97,33 +120,33 @@ export default {
   #contact-us label{
     font-size: 1em;
     font-weight: bold;
+    margin: 0px 0px 0px 0px;
   }
 
-  #contact-us input[type=text], select, textarea {
+  #contact-us #styled-input {
     width: 100%;
-    background-color: white;
     padding: 12px 10px;
-    margin: 0px 0px 12px 0px;
+    margin: 0px 0px 0px 0px;
     display: inline-block;
-    border-style: solid;
-    border-color: #cccccc;
-    border-width: 2px;
-    border-radius: 4px;
+    border: none;
+    min-height: 50px;
+    font-size: 1em;
   }
 
-  #contact-us input[type=button] {
-    width: 100%;
+  #contact-us .req {
+    color: red;
     font-weight: bold;
+    font-size: 1em;
+  }
+
+  #contact-us .v-btn {
+    width: 100%;
+    height: 50px;
     background-color: #4CAF50;
     color: white;
-    border: none;
     padding: 14px 20px;
     margin: 8px 0;
     border-radius: 4px;
-  }
-
-  #contact-us input[type=button]:hover{
-    background-color: #45a049;
   }
 
   #contact-us img {
