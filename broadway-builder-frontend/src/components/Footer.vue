@@ -1,7 +1,7 @@
 <template>
   <v-footer height="auto" lighten-1>
     <v-layout class="footer" justify-center row wrap>
-      <v-btn v-for="link in links" :key="link" color="white" flat>
+      <v-btn v-for="(link, index) in links" :key="link" color="white" flat v-on:click="goToPage(pages[index])">
         {{ link }}
       </v-btn>
       <v-flex class="footer" lighten-2 py-3 text-xs-center white--text xs12>
@@ -14,8 +14,16 @@
 <script>
 export default {
   data: () => ({
-    links: ["Team", "Privacy", "Terms of Service", "Contact Us"]
-  })
+    links: ["Team", "Privacy", "Terms of Service", "Contact Us"],
+    pages: ['', '', '', '/contactus']
+  }),
+  methods: {
+    goToPage(page) {
+      this.$router.push({
+        path: page
+      })
+    }
+  }
 };
 </script>
 
