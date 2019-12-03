@@ -14,8 +14,8 @@
 <script>
 export default {
   data: () => ({
-    links: ["Team", "Privacy", "Terms of Service", "Contact Us"],
-    pages: ['', '', '', '/contactus']
+    links: [ "Contact Us"],
+    pages: ['/contactus']
   }),
   methods: {
     goToPage(page) {
